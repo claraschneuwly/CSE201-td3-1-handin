@@ -98,20 +98,21 @@ bool simulate_projectile(const double magnitude, const double angle,
   return hit_target;
 }
 
-void sort(double *global_telemetry, int global_telemetry_current_size) {
-    for (int i = 0; i < global_telemetry_current_size-3; i= i+3){
-        if (global_telemetry[i] > global_telemetry[i+3]){
-            int a = global_telemetry[i];
-            int b = global_telemetry[i+1];
-            int c = global_telemetry[i+2];
-            global_telemetry[i] = global_telemetry[i+3];
-            global_telemetry[i+1] = global_telemetry[i+4];
-            global_telemetry[i+2] = global_telemetry[i+5];
-            global_telemetry[i+3] = a;
-            global_telemetry[i+4] = b;
-            global_telemetry[i+5] = c;
-        }
+void sort(double *global_telemetry, int &global_telemetry_current_size) {
+    for (int j = 0; j < global_telemetry_current_size; j = j+3){
+        for (int i = 0; i < global_telemetry_current_size-3; i= i+3){
+            if (global_telemetry[i] > global_telemetry[i+3]){
+                double a = global_telemetry[i];
+                double b = global_telemetry[i+1];
+                double c = global_telemetry[i+2];
+                global_telemetry[i] = global_telemetry[i+3];
+                global_telemetry[i+1] = global_telemetry[i+4];
+                global_telemetry[i+2] = global_telemetry[i+5];
+                global_telemetry[i+3] = a;
+                global_telemetry[i+4] = b;
+            }
 
+    }
 }
 }
 
@@ -124,10 +125,9 @@ void merge_telemetry(double **telemetries,
 
     for (int i = 0; i < tot_telemetries; i++){
         for (int j = 0; j < *(telemetries_sizes + i); j++){
-
             global_telemetry = append_to_array(*(*(telemetries + i) + j),global_telemetry, global_telemetry_current_size, global_telemetry_max_size);
         }
     }
-    //sort(global_telemetry, global_telemetry_current_size)
+    sort(global_telemetry, global_telemetry_current_size);
 
 }
