@@ -110,6 +110,7 @@ void sort(double *global_telemetry, int &global_telemetry_current_size) {
                 global_telemetry[i+2] = global_telemetry[i+5];
                 global_telemetry[i+3] = a;
                 global_telemetry[i+4] = b;
+                global_telemetry[i+5] = c;
             }
 
     }
